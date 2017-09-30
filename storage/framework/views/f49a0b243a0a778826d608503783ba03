@@ -1,0 +1,104 @@
+<?php $__env->startSection('content'); ?>
+
+  <div class="page-content row">
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="page-title">
+        <h3> <?php echo e($pageTitle); ?> <small><?php echo e($pageNote); ?></small></h3>
+      </div>
+      <ul class="breadcrumb">
+        <li><a href="<?php echo e(URL::to('dashboard')); ?>"><?php echo e(Lang::get('core.home')); ?></a></li>
+		<li><a href="<?php echo e(URL::to('harilibur?return='.$return)); ?>"><?php echo e($pageTitle); ?></a></li>
+        <li class="active"><?php echo e(Lang::get('core.addedit')); ?> </li>
+      </ul>
+	  	  
+    </div>
+ 
+ 	<div class="page-content-wrapper">
+
+		<ul class="parsley-error-list">
+			<?php foreach($errors->all() as $error): ?>
+				<li><?php echo e($error); ?></li>
+			<?php endforeach; ?>
+		</ul>
+<div class="sbox animated fadeInRight">
+	<div class="sbox-title"> <h4> <i class="fa fa-table"></i> </h4></div>
+	<div class="sbox-content"> 	
+
+		 <?php echo Form::open(array('url'=>'harilibur/save?return='.$return, 'class'=>'form-horizontal','files' => true , 'parsley-validate'=>'','novalidate'=>' ')); ?>
+
+<div class="col-md-12">
+						<fieldset><legend> Hari Libur</legend>
+									
+								  <div class="form-group hidethis " style="display:none;">
+									<label for="Id Hari Libur" class=" control-label col-md-4 text-left"> Id Hari Libur </label>
+									<div class="col-md-6">
+									  <?php echo Form::text('id_hari_libur', $row['id_hari_libur'],array('class'=>'form-control', 'placeholder'=>'',   )); ?> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Nama Hari Libur" class=" control-label col-md-4 text-left"> Nama Hari Libur </label>
+									<div class="col-md-6">
+									  <?php echo Form::text('nama_hari_libur', $row['nama_hari_libur'],array('class'=>'form-control', 'placeholder'=>'',   )); ?> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Tanggal" class=" control-label col-md-4 text-left"> Tanggal </label>
+									<div class="col-md-6">
+									  
+				<div class="input-group m-b" style="width:150px !important;">
+					<?php echo Form::text('tgl', $row['tgl'],array('class'=>'form-control date')); ?>
+
+					<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				</div> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> </fieldset>
+			</div>
+			
+			
+
+		
+			<div style="clear:both"></div>	
+				
+					
+				  <div class="form-group">
+					<label class="col-sm-4 text-right">&nbsp;</label>
+					<div class="col-sm-8">	
+					<button type="submit" name="apply" class="btn btn-info btn-sm" ><i class="fa  fa-check-circle"></i> <?php echo e(Lang::get('core.sb_apply')); ?></button>
+					<button type="submit" name="submit" class="btn btn-primary btn-sm" ><i class="fa  fa-save "></i> <?php echo e(Lang::get('core.sb_save')); ?></button>
+					<button type="button" onclick="location.href='<?php echo e(URL::to('harilibur?return='.$return)); ?>' " class="btn btn-success btn-sm "><i class="fa  fa-arrow-circle-left "></i>  <?php echo e(Lang::get('core.sb_cancel')); ?> </button>
+					</div>	  
+			
+				  </div> 
+		 
+		 <?php echo Form::close(); ?>
+
+	</div>
+</div>		 
+</div>	
+</div>			 
+   <script type="text/javascript">
+	$(document).ready(function() { 
+		
+		 
+
+		$('.removeCurrentFiles').on('click',function(){
+			var removeUrl = $(this).attr('href');
+			$.get(removeUrl,function(response){});
+			$(this).parent('div').empty();	
+			return false;
+		});		
+		
+	});
+	</script>		 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

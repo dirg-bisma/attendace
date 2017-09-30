@@ -1,0 +1,120 @@
+<?php $__env->startSection('content'); ?>
+
+  <div class="page-content row">
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="page-title">
+        <h3> <?php echo e($pageTitle); ?> <small><?php echo e($pageNote); ?></small></h3>
+      </div>
+      <ul class="breadcrumb">
+        <li><a href="<?php echo e(URL::to('dashboard')); ?>"><?php echo e(Lang::get('core.home')); ?></a></li>
+		<li><a href="<?php echo e(URL::to('pegawai?return='.$return)); ?>"><?php echo e($pageTitle); ?></a></li>
+        <li class="active"><?php echo e(Lang::get('core.addedit')); ?> </li>
+      </ul>
+	  	  
+    </div>
+ 
+ 	<div class="page-content-wrapper">
+
+		<ul class="parsley-error-list">
+			<?php foreach($errors->all() as $error): ?>
+				<li><?php echo e($error); ?></li>
+			<?php endforeach; ?>
+		</ul>
+<div class="sbox animated fadeInRight">
+	<div class="sbox-title"> <h4> <i class="fa fa-table"></i> </h4></div>
+	<div class="sbox-content"> 	
+
+		 <?php echo Form::open(array('url'=>'pegawai/save?return='.$return, 'class'=>'form-horizontal','files' => true , 'parsley-validate'=>'','novalidate'=>' ')); ?>
+
+<div class="col-md-12">
+						<fieldset><legend> Pegawai</legend>
+									
+								  <div class="form-group hidethis " style="display:none;">
+									<label for="ID" class=" control-label col-md-4 text-left"> ID </label>
+									<div class="col-md-6">
+									  <?php echo Form::text('id_pegawai', $row['id_pegawai'],array('class'=>'form-control', 'placeholder'=>'',   )); ?> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Nama" class=" control-label col-md-4 text-left"> Nama </label>
+									<div class="col-md-6">
+									  <?php echo Form::text('nama_pegawai', $row['nama_pegawai'],array('class'=>'form-control', 'placeholder'=>'',   )); ?> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Jabatan" class=" control-label col-md-4 text-left"> Jabatan </label>
+									<div class="col-md-6">
+									  <select name='id_jabatan' rows='5' id='id_jabatan' class='select2 '   ></select> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Gaji Pokok" class=" control-label col-md-4 text-left"> Gaji Pokok </label>
+									<div class="col-md-6">
+									  <?php echo Form::text('gaji_pokok', $row['gaji_pokok'],array('class'=>'form-control', 'placeholder'=>'',   )); ?> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Upload" class=" control-label col-md-4 text-left"> Upload </label>
+									<div class="col-md-6">
+									  <?php echo Form::text('upload', $row['upload'],array('class'=>'form-control', 'placeholder'=>'',   )); ?> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> </fieldset>
+			</div>
+			
+			
+
+		
+			<div style="clear:both"></div>	
+				
+					
+				  <div class="form-group">
+					<label class="col-sm-4 text-right">&nbsp;</label>
+					<div class="col-sm-8">	
+					<button type="submit" name="apply" class="btn btn-info btn-sm" ><i class="fa  fa-check-circle"></i> <?php echo e(Lang::get('core.sb_apply')); ?></button>
+					<button type="submit" name="submit" class="btn btn-primary btn-sm" ><i class="fa  fa-save "></i> <?php echo e(Lang::get('core.sb_save')); ?></button>
+					<button type="button" onclick="location.href='<?php echo e(URL::to('pegawai?return='.$return)); ?>' " class="btn btn-success btn-sm "><i class="fa  fa-arrow-circle-left "></i>  <?php echo e(Lang::get('core.sb_cancel')); ?> </button>
+					</div>	  
+			
+				  </div> 
+		 
+		 <?php echo Form::close(); ?>
+
+	</div>
+</div>		 
+</div>	
+</div>			 
+   <script type="text/javascript">
+	$(document).ready(function() { 
+		
+		
+		$("#id_jabatan").jCombo("<?php echo e(URL::to('pegawai/comboselect?filter=m_jabatan:id_jabatan:nama_jabatan')); ?>",
+		{  selected_value : '<?php echo e($row["id_jabatan"]); ?>' });
+		 
+
+		$('.removeCurrentFiles').on('click',function(){
+			var removeUrl = $(this).attr('href');
+			$.get(removeUrl,function(response){});
+			$(this).parent('div').empty();	
+			return false;
+		});		
+		
+	});
+	</script>		 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

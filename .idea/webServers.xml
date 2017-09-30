@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b473323e-20fa-49d5-9146-69f37c175a85" name="djava" url="http://dpermata.djava.net.in">
+        <fileTransfer host="dpermata.djava.net.in" port="21" password="dfc3dfc9dfc3dfc1dfc3dfdddfc3dfd8df98df9bdf98df8b" username="dirgarahayu">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
