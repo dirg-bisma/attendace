@@ -137,6 +137,7 @@ class LapgajiController extends Controller {
 
 		$t_detail_potongan = new TdetailPotongan();
 		$t_detail_tunjangan = new TdetailTunjangan();
+		$pegawai = new Pegawai();
 
 
 		if($id =='')
@@ -164,12 +165,15 @@ class LapgajiController extends Controller {
 		$tunjangan = new Tunjanganmaster();
 		$potongan = new Potonganmaster();
 
+
+
 		$this->data['tunjangan'] = $tunjangan->where('default', 'y')->get();
 		$this->data['potongan'] = $potongan->where('default', 'y')->get();
 		$this->data['detail_potongan'] = $t_detail_potongan->where('id_t_lap_gaji', $id)->get();
 		$this->data['detail_tunjangan'] = $t_detail_tunjangan->where('id_t_lap_gaji', $id)->get();
 		$this->data['c_tunjangan'] = new Tunjanganmaster();
 		$this->data['c_potongan'] = new Potonganmaster();
+		$this->data['pegawai'] = $pegawai->where('id_pegawai', $this->data['row']['id_pegawai'])->first();
 
 		return view('lapgaji.form',$this->data);
 	}	

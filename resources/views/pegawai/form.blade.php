@@ -75,6 +75,60 @@
 									 <div class="col-md-2">
 									 	
 									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="No Telp" class=" control-label col-md-4 text-left"> No Telp </label>
+									<div class="col-md-6">
+									  {!! Form::text('no_telp', $row['no_telp'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Active" class=" control-label col-md-4 text-left"> Active </label>
+									<div class="col-md-6">
+									  
+					<?php $active = explode(',',$row['active']);
+					$active_opt = array( '1' => 'Y' ,  '0' => 'T' , ); ?>
+					<select name='active' rows='5'   class='select2 '  > 
+						<?php 
+						foreach($active_opt as $key=>$val)
+						{
+							echo "<option  value ='$key' ".($row['active'] == $key ? " selected='selected' " : '' ).">$val</option>"; 						
+						}						
+						?></select> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Uang Lembur" class=" control-label col-md-4 text-left"> Uang Lembur </label>
+									<div class="col-md-6">
+									  {!! Form::text('uang_lembur', $row['uang_lembur'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Uang Makan" class=" control-label col-md-4 text-left"> Uang Makan </label>
+									<div class="col-md-6">
+									  {!! Form::text('uang_makan', $row['uang_makan'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Uang Tunjangan Jabatan" class=" control-label col-md-4 text-left"> Uang Tunjangan Jabatan </label>
+									<div class="col-md-6">
+									  {!! Form::text('uang_tunjangan_jabatan', $row['uang_tunjangan_jabatan'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
 								  </div> </fieldset>
 			</div>
 			

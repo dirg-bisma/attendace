@@ -261,7 +261,7 @@
                         <tr>
                             <td><h3>Potongan Jam</h3></td>
                             <td><h3>:</h3></td>
-                            <td><h3>{{ $cek_jam_kerja->TimeAdd($terlambat, $pulangcepat) }}</h3></td>
+                            <td><h3>{{ @$cek_jam_kerja->TimeAdd($terlambat, $pulangcepat) }}</h3></td>
                         </tr>
                     </table>
                 </div>
@@ -269,7 +269,7 @@
                 <input type="hidden" id="jumlah_hari" name="jumlah_hari" value="{{ $jumlah_hari-$libur }}">
                 <input type="hidden" id="terlambat" name="terlambat" value="{{ $terlambat }}">
                 <input type="hidden" id="pulangcepat" name="pulangcepat" value="{{ $pulangcepat }}">
-                <input type="hidden" id="potongan_jam_all" name="potongan_jam_all" value="{{ $cek_jam_kerja->TimeAdd($terlambat, $pulangcepat) }}">
+                <input type="hidden" id="potongan_jam_all" name="potongan_jam_all" value="{{ @$cek_jam_kerja->TimeAdd($terlambat, $pulangcepat) }}">
                 <input type="hidden" id="jml_absen" name="jml_absen" value="{{ $absen }}">
                 <input type="hidden" id="tidak_finger" name="tidak_finger" value="{{ $tidak_absen-($absen*4) }}" >
                 <input type="hidden" id="masuk_kerja" name="masuk_kerja" value="{{ ($jumlah_hari-$libur)-$absen }}" >

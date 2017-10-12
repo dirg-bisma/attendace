@@ -282,25 +282,67 @@
 												@foreach($detail_tunjangan as $data_tun)
 													<?php $l_c_tunjangan = $c_tunjangan->getTunjangan($data_tun->id_tunjangan);?>
 													<?php $l_val_tun = strtolower(str_replace(" ","",$l_c_tunjangan->nama_tunjangan))."_".$l_c_tunjangan->id_tunjangan; ?>
+													<?php
+													switch($data_tun->id_tunjangan){
+														case 1:
+															$nilai = $pegawai->uang_makan;
+															break;
+														case 2:
+															$nilai = $pegawai->uang_lembur;
+															break;
+														case 3:
+															$nilai = $pegawai->uang_tunjangan_jabatan;
+															break;
+														default:
+															$nilai = $data_tun->nilai;
+													}
+
+													?>
 													<tr>
 														<td>{{ $l_c_tunjangan->nama_tunjangan }}</td>
-														<td><input type="text" id="{{ "t_nilai_".$l_val_tun }}" name="{{ "t_nilai_".$l_val_tun }}" value="{{ $data_tun->nilai }}" ></td>
+														<td><input type="text" id="{{ "t_nilai_".$l_val_tun }}" name="{{ "t_nilai_".$l_val_tun }}" value="{{ $nilai }}" ></td>
 														<td>x</td>
-														<td><input type="text" id="{{ "t_fak_".$l_val_tun }}" name="{{ "t_fak_".$l_val_tun }}"  value="{{ $data_tun->faktor }}"></td>
+														@if($data_tunjangan->id_tunjangan === 3)
+															<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" value="1" readonly></td>
+														@else
+															<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" readonly></td>
+														@endif
 														<td><input type="text" id="{{ "t_hasil_".$l_val_tun }}" name="{{ "t_hasil_".$l_val_tun }}" value="{{ $data_tun->hasil }}"></td>
 														<td><input type="text" id="{{ "t_ket_".$l_val_tun }}" name="{{ "t_ket_".$l_val_tun }}" value="{{ $data_tun->keterangan }}"></td>
 														<td></td>
 													</tr>
 												@endforeach
 											@else
-											@foreach($detail_tunjangan as $data_tunjangan)
+											@foreach($tunjangan as $data_tunjangan)
 												<?php $val_tun = strtolower(str_replace(" ", "", $data_tunjangan->nama_tunjangan))."_".$data_tunjangan->id_tunjangan;?>
 												<?php $l_c_tunjangan = $c_tunjangan->getTunjangan($data_tunjangan->id_tunjangan);?>
 												<tr>
 													<td>{{ $l_c_tunjangan->nama_tunjangan }}</td>
-													<td><input type="text" id="{{ "t_nilai_".$val_tun }}" name="{{ "t_nilai_".$val_tun }}" value="{{ $data_tunjangan->nilai }}" readonly></td>
+													<?php
+														switch($data_tunjangan->id_tunjangan){
+															case 1:
+																$nilai = $pegawai->uang_makan;
+																break;
+															case 2:
+																$nilai = $pegawai->uang_lembur;
+																break;
+															case 3:
+																$nilai = $pegawai->uang_tunjangan_jabatan;
+																break;
+															default:
+																$nilai = $data_tunjangan->nilai;
+														}
+
+													?>
+													<td><input type="text" id="{{ "t_nilai_".$val_tun }}" name="{{ "t_nilai_".$val_tun }}" value="{{ $nilai }}" readonly></td>
 													<td>x</td>
-													<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" readonly></td>
+													@if($data_tunjangan->id_tunjangan == 3)
+														<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" value="1" readonly></td>
+													@else
+														<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" readonly></td>
+
+													@endif
+
 													<td><input type="text" id="{{ "t_hasil_".$val_tun }}" name="{{ "t_hasil_".$val_tun }}"></td>
 													<td><input type="text" id="{{ "t_ket_".$val_tun }}" name="{{ "t_ket_".$val_tun }}"></td>
 													<td></td>
@@ -309,6 +351,7 @@
 											@endif
 											</tbody>
 										</table>
+
 									</form>
 
 								</div>
@@ -485,7 +528,10 @@
 					var nilai_lembur = (parseInt(arr_lembur[0])*parseInt($('#t_nilai_lembur_2').val()))+(parseInt(arr_lembur[1])/60*parseInt($('#t_nilai_lembur_2').val()));
 					$('#t_hasil_lembur_2').val(nilai_lembur);
 					$('#t_hasil_lembur_2').number( true, 0);
-
+					//tunjangan jabatan
+					var nilai_jabatan = parseInt($('#t_nilai_jabatan_3').val())*1;
+					$('#t_hasil_jabatan_3').val(nilai_jabatan);
+					$('#t_hasil_jabatan_3').number( true, 0);
 					@endif
 
 					@if(count($detail_potongan) == 0)

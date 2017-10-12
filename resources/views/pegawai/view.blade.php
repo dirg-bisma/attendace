@@ -54,8 +54,38 @@
 					</tr>
 				
 					<tr>
+						<td width='30%' class='label-view text-right'>No Telp</td>
+						<td>{{ $row->no_telp }} </td>
+						
+					</tr>
+				
+					<tr>
 						<td width='30%' class='label-view text-right'>Upload</td>
 						<td>{{ $row->upload }} </td>
+						
+					</tr>
+				
+					<tr>
+						<td width='30%' class='label-view text-right'>Active</td>
+						<td>{{ $row->active }} </td>
+						
+					</tr>
+				
+					<tr>
+						<td width='30%' class='label-view text-right'>Uang Lembur</td>
+						<td>{{ $row->uang_lembur }} </td>
+						
+					</tr>
+				
+					<tr>
+						<td width='30%' class='label-view text-right'>Uang Makan</td>
+						<td>{{ $row->uang_makan }} </td>
+						
+					</tr>
+				
+					<tr>
+						<td width='30%' class='label-view text-right'>Uang Tunjangan Jabatan</td>
+						<td>{{ $row->uang_tunjangan_jabatan }} </td>
 						
 					</tr>
 				
