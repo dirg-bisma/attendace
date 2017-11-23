@@ -30,12 +30,6 @@
 			<tbody>	
 		
 					<tr>
-						<td width='30%' class='label-view text-right'>ID</td>
-						<td>{{ $row->id_pegawai }} </td>
-						
-					</tr>
-				
-					<tr>
 						<td width='30%' class='label-view text-right'>Nama</td>
 						<td>{{ $row->nama_pegawai }} </td>
 						
@@ -72,8 +66,8 @@
 					</tr>
 				
 					<tr>
-						<td width='30%' class='label-view text-right'>Uang Lembur</td>
-						<td>{{ $row->uang_lembur }} </td>
+						<td width='30%' class='label-view text-right'>Lembur</td>
+						<td>{{ $row->lembur }} </td>
 						
 					</tr>
 				
@@ -86,6 +80,12 @@
 					<tr>
 						<td width='30%' class='label-view text-right'>Uang Tunjangan Jabatan</td>
 						<td>{{ $row->uang_tunjangan_jabatan }} </td>
+						
+					</tr>
+				
+					<tr>
+						<td width='30%' class='label-view text-right'>Jamsostek</td>
+						<td>{{ $row->jamsostek }} </td>
 						
 					</tr>
 				

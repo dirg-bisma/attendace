@@ -120,6 +120,15 @@
 									 <div class="col-md-2">
 									 	
 									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Mode" class=" control-label col-md-4 text-left"> Mode </label>
+									<div class="col-md-6">
+									  <select name='mode' rows='5' id='mode' class='select2 '   ></select> 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
 								  </div> </fieldset>
 			</div>
 			
@@ -150,6 +159,9 @@
 		
 		$("#parent").jCombo("{{ URL::to('jamkerja/comboselect?filter=m_setting_jam:id_jam:id_jam|nama') }}&parent=global:Y:",
 		{  parent: '#global:Y', selected_value : '{{ $row["parent"] }}' });
+		
+		$("#mode").jCombo("{{ URL::to('jamkerja/comboselect?filter=m_mode_jam:kode:ket_mode') }}",
+		{  selected_value : '{{ $row["mode"] }}' });
 		 
 
 		$('.removeCurrentFiles').on('click',function(){

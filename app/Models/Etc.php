@@ -52,23 +52,32 @@ class Etc
     }
 
     public function terbilang($x) {
-        $angka = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"];
-        if ($x < 12)
-            return " " . $angka[$x];
-        elseif ($x < 20)
-            return $this->terbilang($x - 10) . " belas";
-        elseif ($x < 100)
-            return $this->terbilang($x / 10) . " puluh" . $this->terbilang($x % 10);
-        elseif ($x < 200)
-            return "seratus" . $this->terbilang($x - 100);
-        elseif ($x < 1000)
-            return $this->terbilang($x / 100) . " ratus" . $this->terbilang($x % 100);
-        elseif ($x < 2000)
-            return "seribu" . $this->terbilang($x - 1000);
-        elseif ($x < 1000000)
-            return $this->terbilang($x / 1000) . " ribu" . $this->terbilang($x % 1000);
-        elseif ($x < 1000000000)
-            return $this->terbilang($x / 1000000) . " juta" . $this->terbilang($x % 1000000);
+        $x=abs($x);
+        $angka=array("","satu","dua","tiga","empat","lima",
+            "enam","tujuh","delapan","sembilan","sepuluh","sebelas");
+        $temp="";
+        if($x<12){
+            $temp=" ".$angka[$x];
+        }elseif($x<20){
+            $temp=$this->terbilang($x-10)." belas";
+        }elseif($x<100){
+            $temp=$this->terbilang($x/10)." puluh".$this->terbilang($x%10);
+        }elseif($x<200){
+            $temp=" seratus".$this->terbilang($x-100);
+        }elseif($x<1000){
+            $temp=$this->terbilang($x/100)." ratus".$this->terbilang($x%100);
+        }elseif($x<2000){
+            $temp=" seribu".$this->terbilang($x-1000);
+        }elseif($x<1000000){
+            $temp=$this->terbilang(abs($x)/1000)." ribu".$this->terbilang(abs($x)%1000);
+        }elseif($x<1000000000){
+            $temp=$this->terbilang($x/1000000)." juta".$this->terbilang($x%1000000);
+        }elseif($x<1000000000000){
+            $temp=$this->terbilang($x/1000000000)." milyar".$this->terbilang(fmod($x,1000000000));
+        }elseif($x<1000000000000000){
+            $temp=$this->terbilang($x/1000000000000)." trilyun".$this->terbilang(fmod($x,1000000000000));
+        }
+        return$temp;
     }
 
 

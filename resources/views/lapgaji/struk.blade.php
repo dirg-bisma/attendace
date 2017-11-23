@@ -72,7 +72,7 @@
         <td>Terbilang</td>
         <td>:</td>
         <td></td>
-        <td>{{ strtoupper($etc->terbilang(($row->gaji+$row->tunjangan)-$row->potongan)) }} RUPIAH</td>
+        <td>{{ strtoupper($etc->terbilang(abs(($row->gaji+$row->tunjangan)-$row->potongan))) }} RUPIAH</td>
     </tr>
 </table>
 <br>
@@ -93,11 +93,11 @@
     @foreach($detail_tunjangan as $data_tunjangan)
     <tr>
         <td>{{ $t_i }}</td>
-        <td>{{ $m_tunjangan->where('id_tunjangan', $data_tunjangan->id_tunjangan)->first()->nama_tunjangan }}</td>
+        <td>{{ @$m_tunjangan->where('id_tunjangan', $data_tunjangan->id_tunjangan)->first()->nama_tunjangan }}</td>
         <td>:</td>
-        <td>{{ $data_tunjangan->nilai }}</td>
+        <td>{{ @$data_tunjangan->nilai }}</td>
         <td>x</td>
-        <td>{{ $data_tunjangan->faktor }}</td>
+        <td>{{ @$data_tunjangan->faktor }}</td>
         <td>=</td>
         @if(count($detail_tunjangan) === $t_i)
             <td><u>{{ number_format($data_tunjangan->hasil) }}&nbsp;&nbsp;</u> +</td>

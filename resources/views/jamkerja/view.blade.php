@@ -77,6 +77,12 @@
 						
 					</tr>
 				
+					<tr>
+						<td width='30%' class='label-view text-right'>Mode</td>
+						<td>{{ $row->mode }} </td>
+						
+					</tr>
+				
 			</tbody>	
 		</table>   
 

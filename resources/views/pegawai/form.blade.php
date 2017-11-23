@@ -67,7 +67,7 @@
 									 	
 									 </div>
 								  </div> 					
-								  <div class="form-group  " >
+								  <div class="form-group hidethis " style="display:none;">
 									<label for="Upload" class=" control-label col-md-4 text-left"> Upload </label>
 									<div class="col-md-6">
 									  {!! Form::text('upload', $row['upload'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
@@ -90,7 +90,7 @@
 									<div class="col-md-6">
 									  
 					<?php $active = explode(',',$row['active']);
-					$active_opt = array( '1' => 'Y' ,  '0' => 'T' , ); ?>
+					$active_opt = array( '1' => 'Ya' ,  '0' => 'Tidak' , ); ?>
 					<select name='active' rows='5'   class='select2 '  > 
 						<?php 
 						foreach($active_opt as $key=>$val)
@@ -104,9 +104,9 @@
 									 </div>
 								  </div> 					
 								  <div class="form-group  " >
-									<label for="Uang Lembur" class=" control-label col-md-4 text-left"> Uang Lembur </label>
+									<label for="Lembur" class=" control-label col-md-4 text-left"> Lembur </label>
 									<div class="col-md-6">
-									  {!! Form::text('uang_lembur', $row['uang_lembur'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
+									  {!! Form::text('lembur', $row['lembur'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
 									 </div> 
 									 <div class="col-md-2">
 									 	
@@ -125,6 +125,15 @@
 									<label for="Uang Tunjangan Jabatan" class=" control-label col-md-4 text-left"> Uang Tunjangan Jabatan </label>
 									<div class="col-md-6">
 									  {!! Form::text('uang_tunjangan_jabatan', $row['uang_tunjangan_jabatan'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
+									 </div> 
+									 <div class="col-md-2">
+									 	
+									 </div>
+								  </div> 					
+								  <div class="form-group  " >
+									<label for="Jamsostek(%)" class=" control-label col-md-4 text-left"> Jamsostek(%) </label>
+									<div class="col-md-6">
+									  {!! Form::text('jamsostek', $row['jamsostek'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
 									 </div> 
 									 <div class="col-md-2">
 									 	

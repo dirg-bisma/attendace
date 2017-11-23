@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\controller;
+use App\Models\Cekjamkerja;
 use App\Models\Etc;
+use App\Models\Harilibur;
 use App\Models\Lapgaji;
 use App\Models\Potonganmaster;
 use App\Models\TdetailPotongan;
@@ -53,16 +55,18 @@ class LapgajiController extends Controller {
 				->with('messagetext', \Lang::get('core.note_restric'))->with('msgstatus','error');
 
 		$sort = (!is_null($request->input('sort')) ? $request->input('sort') : 'id_laporan'); 
-		$order = (!is_null($request->input('order')) ? $request->input('order') : 'asc');
+		$order = (!is_null($request->input('order')) ? $request->input('order') : 'desc');
 		// End Filter sort and order for query 
 		// Filter Search for query		
 		$filter = (!is_null($request->input('search')) ? $this->buildSearch() : '');
 
+		$pegawai = new Pegawai();
+		$jumlah_pegawai = $pegawai->all()->count();
 		
 		$page = $request->input('page', 1);
 		$params = array(
 			'page'		=> $page ,
-			'limit'		=> (!is_null($request->input('rows')) ? filter_var($request->input('rows'),FILTER_VALIDATE_INT) : static::$per_page ) ,
+			'limit'		=> (!is_null($request->input('rows')) ? filter_var($request->input('rows'),FILTER_VALIDATE_INT) : $jumlah_pegawai ) ,
 			'sort'		=> $sort ,
 			'order'		=> $order,
 			'params'	=> $filter,
@@ -117,9 +121,40 @@ class LapgajiController extends Controller {
 
 			if(count($cek) == 0){
 				$lap = new Lapgaji();
-				$lap->tgl_awal = $request->input('tahun').'-'.$request->input('bulan').'-01';
-				$jumlah_hari = cal_days_in_month(CAL_GREGORIAN, $request->input('bulan'), $request->input('tahun'));
-				$lap->tgl_akhir = $request->input('tahun').'-'.$request->input('bulan').'-'.$jumlah_hari;
+				$jumlah_hari_sisa = null;
+				if($request->input('bulan') != 1){
+					$jumlah_hari_sisa = cal_days_in_month(CAL_GREGORIAN, $request->input('bulan')-1, $request->input('tahun'));
+				}else{
+					$jumlah_hari_sisa = cal_days_in_month(CAL_GREGORIAN, 12, $request->input('tahun')-1);
+				}
+
+				$raw_awal = $jumlah_hari_sisa - 28;
+				if($raw_awal == 0){
+					$tgl_awal = 01;
+				}else{
+					if(($jumlah_hari_sisa - ($raw_awal-1)) == 0){
+						$tgl_awal = "01";
+					}else{
+						$tgl_awal = $jumlah_hari_sisa - ($raw_awal-1);
+					}
+				}
+
+				if($request->input('bulan') != 1){
+					if($tgl_awal == "01") {
+						$bulan = $request->input('bulan');
+						$lap->tgl_awal = $request->input('tahun') . '-' . $bulan . '-' . $tgl_awal;
+					}else{
+						$bulan = $request->input('bulan')-1;
+						$lap->tgl_awal = $request->input('tahun') . '-' . $bulan . '-' . $tgl_awal;
+					}
+
+				}else{
+					$tahun = $request->input('tahun')-1;
+					$lap->tgl_awal = $tahun.'-'."12".'-'.$tgl_awal;
+				}
+
+
+				$lap->tgl_akhir = $request->input('tahun').'-'.$request->input('bulan').'-'."28";
 				$lap->id_pegawai = $data->id_pegawai;
 				$lap->gaji = $data->gaji_pokok;
 				$lap->bulan = $request->input('bulan');
@@ -280,7 +315,9 @@ class LapgajiController extends Controller {
 
 	public function getTestdata()
 	{
-		return view("lapgaji.test");
+		$etc = new Cekjamkerja();
+		return $etc->TimeAdd("00:30","02:20");
+		// view("lapgaji.test");
 	}
 
 	public function postAbsentable(Request $request)
@@ -292,18 +329,28 @@ class LapgajiController extends Controller {
 		$model_lap = $this->model;
 		$etc_model = new etc();
 		$harinonaktif = new harinonaktif();
+		$hari_libur  = new Harilibur();
 		$cek_jam_kerja = new cek_jam_kerja();
 		$harinon = $harinonaktif->all();
+		$harilibur = $hari_libur->all();
 		$dataharianarray = array();
+		$dataliburarray = array();
 		$jam_kerja = new jam_kerja();
 		$jamsetting = $jam_kerja->where('global', 'y')->get();
+
 		foreach($harinon as $dataharinon){
 			array_push($dataharianarray,$dataharinon->hari );
 		}
+
+		foreach($harilibur as $datahari_libur){
+			array_push($dataliburarray,$datahari_libur->tgl );
+		}
+
 		return view("lapgaji.table", [
 			"model_lap" => $model_lap,
 			"etc_model" => $etc_model,
 			'harinon' => $dataharianarray,
+			'hari_libur' => $dataliburarray,
 			'jam_setting' => $jamsetting,
 			'cek_jam_kerja' => $cek_jam_kerja,
 			'tgl_awal' => $tgl_awal,
@@ -311,6 +358,80 @@ class LapgajiController extends Controller {
 			'id_pegawai' => $id_pegawai
 		]);
 
+	}
+
+	public function getDataabsen(Request $request){
+		$tgl_awal = $request->input('tgl_awal');
+		$tgl_akhir = $request->input('tgl_akhir');
+		$id_pegawai = $request->input('id_pegawai');
+
+		$model_lap = $this->model;
+		$etc_model = new etc();
+		$harinonaktif = new harinonaktif();
+		$hari_libur  = new Harilibur();
+		$cek_jam_kerja = new cek_jam_kerja();
+		$harinon = $harinonaktif->all();
+		$harilibur = $hari_libur->all();
+		$dataharianarray = array();
+		$dataliburarray = array();
+		$jam_kerja = new jam_kerja();
+		$jamsetting = $jam_kerja->where('global', 'y')->get();
+		$pegawai = new Pegawai();
+		$data_pegawai = $pegawai->where('id_pegawai', $id_pegawai)->first();
+
+		foreach($harinon as $dataharinon){
+			array_push($dataharianarray,$dataharinon->hari );
+		}
+
+		foreach($harilibur as $datahari_libur){
+			array_push($dataliburarray,$datahari_libur->tgl );
+		}
+
+		return view("lapgaji.report_absen", [
+			"model_lap" => $model_lap,
+			"etc_model" => $etc_model,
+			'harinon' => $dataharianarray,
+			'hari_libur' => $dataliburarray,
+			'jam_setting' => $jamsetting,
+			'cek_jam_kerja' => $cek_jam_kerja,
+			'tgl_awal' => $tgl_awal,
+			'tgl_akhir' => $tgl_akhir,
+			'id_pegawai' => $id_pegawai,
+			'data_pegawai' => $data_pegawai
+		]);
+	}
+
+	public function getDatalembur(Request $request)
+	{
+		$tgl_awal = $request->input('tgl_awal');
+		$tgl_akhir = $request->input('tgl_akhir');
+		$id_pegawai = $request->input('id_pegawai');
+
+		$model_lap = $this->model;
+		$etc_model = new etc();
+		$harinonaktif = new Harinonaktif();
+		$cek_jam_kerja = new cek_jam_kerja();
+		$harinon = $harinonaktif->all();
+		$dataharianarray = array();
+		$lemburjam = new lemburjam();
+		$jamlembur = $lemburjam->where('global', 'y')->get();
+		$pegawai = new Pegawai();
+		$data_pegawai = $pegawai->where('id_pegawai', $id_pegawai)->first();
+
+		foreach($harinon as $dataharinon){
+			array_push($dataharianarray,$dataharinon->hari );
+		}
+		return view("lapgaji.report_lembur", [
+			"model_lap" => $model_lap,
+			"etc_model" => $etc_model,
+			'harinon' => $dataharianarray,
+			'jamlembur' => $jamlembur,
+			'cek_jam_kerja' => $cek_jam_kerja,
+			'tgl_awal' => $tgl_awal,
+			'tgl_akhir' => $tgl_akhir,
+			'id_pegawai' => $id_pegawai,
+			'data_pegawai' => $data_pegawai
+		]);
 	}
 
 	public function postLemburtable(Request $request)

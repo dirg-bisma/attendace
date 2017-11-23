@@ -15,6 +15,7 @@ class Cekjamkerja
     public function Carirawdata($tgl, $id_jam, $id_pegawai, $hari){
         $jamkerja = new Jamkerja();
         $absenraw = new Absenraw();
+        $dinasraw = new Absendinas();
         $datanonGlobal = $jamkerja->where('parent', $id_jam)->where('hari', $hari)->first();
         $pattern = '/\d{4}\-\d{2}-\d{2}\s/';
         if(count($datanonGlobal)>0){
@@ -25,7 +26,16 @@ class Cekjamkerja
             if(count($data)>0){
                 return preg_replace($pattern, "", $data->tgl);
             }else{
-                return "-";
+                $data_dinas = $dinasraw->where('id_pegawai', $id_pegawai)
+                    ->whereBetween('tgl', array("$tgl $datanonGlobal->jam_awal", "$tgl $datanonGlobal->jam_akhir"))
+                    ->orderBy('tgl', 'ASC')
+                    ->first();
+                if(count($data_dinas)>0){
+                    return preg_replace($pattern, "", $data_dinas->tgl);
+                }else{
+                    return "-#-";
+                }
+
             }
         }else{
             $dataGlobal = $jamkerja->where('id_jam', $id_jam)->first();
@@ -36,7 +46,15 @@ class Cekjamkerja
             if(count($data)>0){
                 return preg_replace($pattern, "", $data->tgl);
             }else{
-                return "-";
+                $data_dinas = $dinasraw->where('id_pegawai', $id_pegawai)
+                    ->whereBetween('tgl', array("$tgl $dataGlobal->jam_awal", "$tgl $dataGlobal->jam_akhir"))
+                    ->orderBy('tgl', 'ASC')
+                    ->first();
+                if(count($data_dinas)>0){
+                    return preg_replace($pattern, "", $data_dinas->tgl);
+                }else{
+                    return "-#-";
+                }
             }
         }
 
@@ -61,7 +79,7 @@ class Cekjamkerja
                 $jam_lembur = date_diff(date_create($data_a->tgl),  date_create($data_b->tgl));
                 return $jam_lembur->format("%H:%i");
             }else{
-                return "-";
+                return "-*-";
             }
         }else{
             $dataGlobal = $jamkerja->where('global', 'Y')->first();
@@ -77,7 +95,7 @@ class Cekjamkerja
                 $jam_lembur = date_diff(date_create($data_a->tgl),  date_create($data_b->tgl));
                 return $jam_lembur->format("%H:%i%i");
             }else{
-                return "-";
+                return "-*-";
             }
         }
     }

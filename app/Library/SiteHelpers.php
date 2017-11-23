@@ -860,7 +860,7 @@ public static function alphaID($in, $to_num = false, $pad_up = false, $passKey =
 				break;
 
 			case 'text_datetime';
-				$form = "<input  type='text' name='$field{$bulk}'  class='date form-control input-sm'  $mandatory value='{$value}'/> ";
+				$form = "<input placeholder='0000-00-00 00:00:00'  type='text' name='$field{$bulk}' id='$field'  class='form-control input-sm datetime'  $mandatory value='{$value}'/> ";
 				break;				
 
 			case 'select';

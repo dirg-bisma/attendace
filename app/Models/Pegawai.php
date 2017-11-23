@@ -3,13 +3,15 @@
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Pegawai extends Sximo  {
+class pegawai extends Sximo  {
 	
 	protected $table = 'm_pegawai';
 	protected $primaryKey = 'id_pegawai';
+	public $timestamps = false;
 
 	public function __construct() {
 		parent::__construct();
+		
 	}
 
 	public static function querySelect(  ){

@@ -27,7 +27,7 @@
                                             <td style="color: red">{{ $awal->format('Y').'-'.$awal->format('m').'-'.$i }}</td>
                                             <td style="color: red">{{ $hari }}</td>
                                             <td>{{ $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) }}</td>
-                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-")
+                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-*-")
                                                 <?php $cek = $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) ?>
                                                     @if($lembur == null)
                                                         <?php $lembur = $cek_jam_kerja->TimeAdd("00:00", $cek)?>
@@ -39,7 +39,7 @@
                                             <td>{{ $awal->format('Y').'-'.$awal->format('m').'-'.$i }}</td>
                                             <td>{{ $hari }}</td>
                                             <td>{{ $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) }}</td>
-                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-")
+                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-*-")
                                                 <?php $cek = $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) ?>
                                                     @if($lembur == null)
                                                         <?php $lembur = $cek_jam_kerja->TimeAdd("00:00", $cek)?>
@@ -59,7 +59,7 @@
                                             <td style="color: red">{{ $awal->format('Y').'-'.$awal->format('m').'-'.$i }}</td>
                                             <td style="color: red">{{ $hari }}</td>
                                             <td>{{ $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) }}</td>
-                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-")
+                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-*-")
                                                 <?php $cek = $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) ?>
                                                     @if($lembur == null)
                                                         <?php $lembur = $cek_jam_kerja->TimeAdd("00:00", $cek)?>
@@ -71,7 +71,7 @@
                                             <td>{{ $awal->format('Y').'-'.$awal->format('m').'-'.$i }}</td>
                                             <td>{{ $hari }}</td>
                                             <td>{{ $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) }}</td>
-                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-")
+                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-*-")
                                                 <?php $cek = $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) ?>
                                                     @if($lembur == null)
                                                         <?php $lembur = $cek_jam_kerja->TimeAdd("00:00", $cek)?>
@@ -90,7 +90,7 @@
                                             <td style="color: red">{{ $akhir->format('Y').'-'.$akhir->format('m').'-'.$i }}</td>
                                             <td style="color: red">{{ $hari }}</td>
                                             <td>{{ $cek_jam_kerja->Carirawdatalembur($akhir->format('Y').'-'.$akhir->format('m').'-'.$i, $id_pegawai, $hari) }}</td>
-                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-")
+                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-*-")
                                                 <?php $cek = $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) ?>
                                                     @if($lembur == null)
                                                         <?php $lembur = $cek_jam_kerja->TimeAdd("00:00", $cek)?>
@@ -102,7 +102,7 @@
                                             <td>{{ $awal->format('Y').'-'.$akhir->format('m').'-'.$i }}</td>
                                             <td>{{ $hari }}</td>
                                             <td>{{ $cek_jam_kerja->Carirawdatalembur($akhir->format('Y').'-'.$akhir->format('m').'-'.$i, $id_pegawai, $hari) }}</td>
-                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-")
+                                            @if($cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) != "-*-")
                                                 <?php $cek = $cek_jam_kerja->Carirawdatalembur($awal->format('Y').'-'.$awal->format('m').'-'.$i, $id_pegawai, $hari) ?>
                                                     @if($lembur == null)
                                                         <?php $lembur = $cek_jam_kerja->TimeAdd("00:00", $cek)?>
@@ -122,17 +122,17 @@
 
             </div>
             <div class="table" style="min-height:300px;">
-                <table class="table table-striped ">
+                <table>
                     <tr>
                         <td width="100px" ><h3>Lembur</h3></td>
                         <td width="20px"><h3>:</h3></td>
-                        <td><h3>{{ $lembur }}</h3></td>
-                        <form>
-                            <input type="hidden" id="jumlah_lembur" name="jumlah_lembur" value="{{ $lembur }}">
-                        </form>
+                        <td><h3>{{ $lembur != "" ? $lembur : "00:00" }}</h3></td>
                     </tr>
 
                 </table>
+                <form>
+                    <input type="hidden" name="jumlah_lembur" id="jumlah_lembur" value="{{ $lembur != "" ? $lembur : "00:00" }}">
+                </form>
             </div>
         </div>
     </div>

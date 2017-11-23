@@ -82,6 +82,8 @@
 								<label for="Pegawai" class=" control-label col-md-4 text-left"> </label>
 								<div class="col-md-6">
 									<button type="button" name="proses" id="proses" class="btn btn-info btn-sm"><i class="fa  fa-check-circle"></i> Proses</button>
+									<a target="_blank" href="{{ URL::to('lapgaji/dataabsen') }}?id_pegawai={{ $row['id_pegawai'] }}&tgl_awal={{ $row['tgl_awal'] }}&tgl_akhir={{ $row['tgl_akhir'] }}"  class="btn btn-warning btn-sm"><i class="fa  fa-print"></i> Absen</a>
+									<a target="_blank" href="{{ URL::to('lapgaji/data') }}?id_pegawai={{ $row['id_pegawai'] }}&tgl_awal={{ $row['tgl_awal'] }}&tgl_akhir={{ $row['tgl_akhir'] }}"  class="btn btn-default btn-sm"><i class="fa  fa-print"></i> Lembur</a>
 								</div>
 								<div class="col-md-2">
 
@@ -174,7 +176,7 @@
 										<div class="form-group  " >
 											<div class="col-md-11">
 												<div class="col-md-5">
-													<select name='id_m_potongan' rows='5' id='id_m_potongan' class='select2 ' readonly="true"  ></select>
+													<select name='id_m_potongan' rows='5' id='id_m_potongan' class='select2 '   ></select>
 												</div>
 												<div class="col-md-3">
 													<button type="button" onclick="add_potongan()" class="btn btn-default">Tambah</button>
@@ -225,9 +227,9 @@
 												<?php $var_pot = strtolower(str_replace(" ","",$data_potongan->nama_potongan))."_".$data_potongan->id_m_potongan;?>
 												<tr>
 													<td>{{ $data_potongan->nama_potongan }}</td>
-													<td><input type="text" id="{{ 'p_nilai_'.$var_pot}}" name="{{ 'p_nilai_'.$var_pot }}" readonly value="{{ $data_potongan->nilai }}"></td>
+													<td><input type="text" id="{{ 'p_nilai_'.$var_pot}}" name="{{ 'p_nilai_'.$var_pot }}" value="{{ $data_potongan->nilai }}"></td>
 													<td>x</td>
-													<td><input type="text" id="{{ 'p_fak_'.$var_pot }}" name="{{ 'p_fak_'.$var_pot }}" readonly></td>
+													<td><input type="text" id="{{ 'p_fak_'.$var_pot }}" name="{{ 'p_fak_'.$var_pot }}"></td>
 													<td><input type="text" id="{{ "p_hasil_".$var_pot }}" name="{{ "p_hasil_".$var_pot }}"></td>
 													<td><input type="text" id="{{ "p_ket_".$var_pot }}" name="{{ "p_ket_".$var_pot }}"></td>
 													<td></td>
@@ -246,7 +248,7 @@
 										<div class="form-group  " >
 										<div class="col-md-11">
 											<div class="col-md-5">
-												<select name='id_tunjangan' rows='5' id='id_tunjangan' class='select2 ' readonly="true"  ></select>
+												<select name='id_tunjangan' rows='5' id='id_tunjangan' class='select2 ' ></select>
 											</div>
 											<div class="col-md-3">
 												<button type="button" onclick="add_tunjangan()" class="btn btn-default">Tambah</button>
@@ -302,10 +304,10 @@
 														<td>{{ $l_c_tunjangan->nama_tunjangan }}</td>
 														<td><input type="text" id="{{ "t_nilai_".$l_val_tun }}" name="{{ "t_nilai_".$l_val_tun }}" value="{{ $nilai }}" ></td>
 														<td>x</td>
-														@if($data_tunjangan->id_tunjangan === 3)
-															<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" value="1" readonly></td>
+														@if($data_tun->id_tunjangan == 3)
+															<td><input type="text" id="{{ "t_fak_".$l_val_tun }}" name="{{ "t_fak_".$l_val_tun }}" value="1"></td>
 														@else
-															<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" readonly></td>
+															<td><input type="text" id="{{ "t_fak_".$l_val_tun }}" name="{{ "t_fak_".$l_val_tun }}" readonly></td>
 														@endif
 														<td><input type="text" id="{{ "t_hasil_".$l_val_tun }}" name="{{ "t_hasil_".$l_val_tun }}" value="{{ $data_tun->hasil }}"></td>
 														<td><input type="text" id="{{ "t_ket_".$l_val_tun }}" name="{{ "t_ket_".$l_val_tun }}" value="{{ $data_tun->keterangan }}"></td>
@@ -334,10 +336,10 @@
 														}
 
 													?>
-													<td><input type="text" id="{{ "t_nilai_".$val_tun }}" name="{{ "t_nilai_".$val_tun }}" value="{{ $nilai }}" readonly></td>
+													<td><input type="text" id="{{ "t_nilai_".$val_tun }}" name="{{ "t_nilai_".$val_tun }}" value="{{ $nilai }}"></td>
 													<td>x</td>
 													@if($data_tunjangan->id_tunjangan == 3)
-														<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" value="1" readonly></td>
+														<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" value="1"></td>
 													@else
 														<td><input type="text" id="{{ "t_fak_".$val_tun }}" name="{{ "t_fak_".$val_tun }}" readonly></td>
 
@@ -385,11 +387,11 @@
 			var id_label = $('#id_tunjangan').find('option:selected').val();
 			var table_tr = '<tr id="row_'+label.replace(" ", "")+'">'+
 			'<td>'+$('#id_tunjangan').find('option:selected').text()+'</td>'+
-			'<td><input id="t_nilai_'+removeSpace(label+'_'+id_label)+'" name="val_'+removeSpace(label+'_'+id_label)+'"></td>'+
+			'<td><input type="text" id="t_nilai_'+removeSpace(label+'_'+id_label)+'" name="t_nilai_'+removeSpace(label+'_'+id_label)+'"></td>'+
 			'<td>x</td>'+
-			'<td><input id="t_fak_'+removeSpace(label+'_'+id_label)+'" name="'+removeSpace(label+'_'+id_label)+'"></td>'+
-			'<td><input id="t_hasil_'+removeSpace(label+'_'+id_label)+'" name="hasil_'+removeSpace(label+'_'+id_label)+'"></td>'+
-			'<td><input id="t_ket_'+removeSpace(label+'_'+id_label)+'" name="ket_'+removeSpace(label+'_'+id_label)+'"></td>'+
+			'<td><input type="text" id="t_fak_'+removeSpace(label+'_'+id_label)+'" name="t_fak_'+removeSpace(label+'_'+id_label)+'"></td>'+
+			'<td><input type="text" id="t_hasil_'+removeSpace(label+'_'+id_label)+'" name="t_hasil_'+removeSpace(label+'_'+id_label)+'"></td>'+
+			'<td><input type="text" id="t_ket_'+removeSpace(label+'_'+id_label)+'" name="t_ket_'+removeSpace(label+'_'+id_label)+'"></td>'+
 			'<td><button class="btn-mini btn-danger" onclick="delete_row_tunjangan(\'#row_'+label+'\')">-</button></td>'
 					'</tr>';
 			$('#tabel-tunjangan tr:last').after(table_tr);
@@ -415,12 +417,12 @@
 			var id_label = $('#id_m_potongan').find('option:selected').val();
 			var table_tr = '<tr id="row_'+label.replace(" ","")+'">'+
 					'<td>'+$('#id_m_potongan').find('option:selected').text()+'</td>'+
-					'<td><input id="p_nilai_'+removeSpace(label+'_'+id_label)+'" name="val_'+removeSpace(label+'_'+id_label)+'"></td>'+
+					'<td><input type="text" id="p_nilai_'+removeSpace(label+'_'+id_label)+'" name="p_nilai_'+removeSpace(label+'_'+id_label)+'"></td>'+
 					'<td>x</td>'+
-					'<td><input id="p_fak_'+removeSpace(label+'_'+id_label)+'" name="'+removeSpace(label+'_'+id_label)+'"></td>'+
-					'<td><input id="p_hasil_'+removeSpace(label+'_'+id_label)+'" name="hasil_'+removeSpace(label+'_'+id_label)+'"></td>'+
-					'<td><input id="p_ket_'+removeSpace(label+'_'+id_label)+'" name="ket_'+removeSpace(label+'_'+id_label)+'"></td>'+
-					'<td><button class="btn-mini btn-danger" onclick="delete_row_potongan(\'#row_'+label+'\')">-</button></td>'
+					'<td><input type="text" id="p_fak_'+removeSpace(label+'_'+id_label)+'" name="p_fak_'+removeSpace(label+'_'+id_label)+'"></td>'+
+					'<td><input type="text" id="p_hasil_'+removeSpace(label+'_'+id_label)+'" name="p_hasil_'+removeSpace(label+'_'+id_label)+'"></td>'+
+					'<td><input type="text" id="p_ket_'+removeSpace(label+'_'+id_label)+'" name="p_ket_'+removeSpace(label+'_'+id_label)+'"></td>'+
+					'<td><button type="text" class="btn-mini btn-danger" onclick="delete_row_potongan(\'#row_'+label+'\')">-</button></td>'
 			'</tr>';
 			$('#tabel-potongan tr:last').after(table_tr);
 			arr_potongan.push(removeSpace(label+'_'+id_label));
@@ -453,7 +455,7 @@
 			$(id).remove();
 
 			arr_potongan = jQuery.grep(arr_potongan, function(value) {
-				return value != id.replace("#row_", "");;
+				return value != id.replace("#row_", "");
 			});
 		}
 
@@ -488,7 +490,9 @@
 				$.post("{{ URL::to('lapgaji/save') }}", $("#lapgaji-form").serialize(), function(data) {
 					//alert(data);
 					toastr.success("success", "Saved successfully!");
+					window.location.replace("{{ URL::to('lapgaji') }}");
 				});
+
 			});
 
 			$("#proses").click(function(){
@@ -515,27 +519,36 @@
 					id_pegawai : $('#id_pegawai').val()
 				}, function(data){
 					$('#data-absen').html(data);
-					@if(count($detail_tunjangan) == 0)
-					//uang makan
 
+					//uang makan
+					var uang_makan = "{{ $pegawai->uang_makan }}";
 					$('#t_fak_uangmakan_1').val($('#masuk_kerja').val());
+					$('#t_nilai_uangmakan_1').val(uang_makan);
 					$('#t_hasil_uangmakan_1').val(parseInt($('#masuk_kerja').val())*parseInt($('#t_nilai_uangmakan_1').val()));
 					$('#t_hasil_uangmakan_1').number( true, 0);
+
 					//lembur
+					var nilai_lembur = "{{ $pegawai->lembur }}";
 					$('#t_fak_lembur_2').val($('#jumlah_lembur').val());
+					$('#t_nilai_lembur_2').val(nilai_lembur);
 					var lembur = $('#jumlah_lembur').val();
 					var arr_lembur = lembur.split(':');
 					var nilai_lembur = (parseInt(arr_lembur[0])*parseInt($('#t_nilai_lembur_2').val()))+(parseInt(arr_lembur[1])/60*parseInt($('#t_nilai_lembur_2').val()));
 					$('#t_hasil_lembur_2').val(nilai_lembur);
 					$('#t_hasil_lembur_2').number( true, 0);
+
 					//tunjangan jabatan
 					var nilai_jabatan = parseInt($('#t_nilai_jabatan_3').val())*1;
 					$('#t_hasil_jabatan_3').val(nilai_jabatan);
 					$('#t_hasil_jabatan_3').number( true, 0);
-					@endif
 
-					@if(count($detail_potongan) == 0)
+
+					var gaji_pokok = $('#gaji').val();
+					var jumlah_hari = $('#jumlah_hari').val();
+
 					//potongan jam
+					var potongan_jam = Math.floor(parseInt(gaji_pokok)/parseInt(jumlah_hari)/7);
+					$('#p_nilai_potonganjam_1').val(potongan_jam);
 					$('#potonganjam').val($('#potongan_jam_all').val());
 					var potongan_jam = $('#potongan_jam_all').val();
 					var arr_potongan_jam = potongan_jam.split(':');
@@ -543,11 +556,10 @@
 					$('#p_fak_potonganjam_1').val(potongan_jam);
 					$('#p_hasil_potonganjam_1').val(nilai_potongan_jam);
 					$('#p_hasil_potonganjam_1').number( true, 0);
+
 					//absen
 					$('#absen').val($('#jml_absen').val());
 					var absen = $('#jml_absen').val();
-					var gaji_pokok = $('#gaji').val();
-					var jumlah_hari = $('#jumlah_hari').val();
 					var nilai_absen = Math.round(parseInt(gaji_pokok)/parseInt(jumlah_hari));
 					$('#p_nilai_absen_2').val(nilai_absen);
 					$('#p_fak_absen_2').val(absen);
@@ -555,10 +567,12 @@
 					$('#p_hasil_absen_2').number( true, 0);
 
 					//jamsostek
+					var jamsostek = "{{ $pegawai->jamsostek }}";
+
 					$('#p_fak_jamsostek_3').val(gaji_pokok);
+					$('#p_nilai_jamsostek_3').val(jamsostek);
 					$('#p_hasil_jamsostek_3').val((parseInt(gaji_pokok)*(parseInt($('#p_nilai_jamsostek_3').val())/100)));
 					$('#p_hasil_jamsostek_3').number( true, 0);
-					@endif
 				});
 
 			});

@@ -9,4 +9,7 @@
                     Route::controller('harilibur', 'HariliburController');
                     Route::controller('harinonaktif', 'HarinonaktifController');
                     Route::controller('lapgaji', 'LapgajiController');
+                    Route::controller('entryabsen', 'EntryabsenController');
+                    Route::controller('absendinas', 'AbsendinasController');
+                    Route::controller('dinas', 'DinasController');
                     ?>

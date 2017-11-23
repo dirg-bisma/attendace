@@ -20,7 +20,7 @@ Route::controller('home', 'HomeController');
 Route::controller('/user', 'UserController');
 include('pageroutes.php');
 include('moduleroutes.php');
-include('userroutes.php');
+include('userroute.php');
 
 Route::get('/restric',function(){
 
